@@ -2,4 +2,5 @@
 db.sqlite3
 vendor
 *.pyc
-
+.DS_Store
+.vagrant

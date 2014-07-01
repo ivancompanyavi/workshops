@@ -1,0 +1,10 @@
+Problemas que me he encontrado al instalar MySQL
+
+MySQL lo tengo dentro del Vagrant, por lo que he tenido que hacer 2 cosas:
+
+- Darle acceso al puerto de MySQL desde Vagrant a mi ordenador, haciendo forwarding del puerto:
+    Vagrantfile: config.vm.network :forwarded_port, guest: 3306, host: 3456
+- Permitir el acceso de IP a mi MySQL, modificando el archivo de configuracion de MySQL:
+    /etc/mysql/my.cfg: bind-access = 0.0.0.0
+- Darle privilegios a mi IP en el MySQL:
+    Dentro de mysql: GRANT ALL ON *.* to root@'10.0.2.2' IDENTIFIED BY 'root';
