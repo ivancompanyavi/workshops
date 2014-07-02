@@ -19,3 +19,10 @@ class RegisterForm(forms.Form):
 
         if User.objects.filter(Q(username=username) | Q(email=email)).count():
             raise forms.ValidationError('The user or email you introduced is already registered in our database')
+        return self.cleaned_data
+
+
+class LoginForm(forms.Form):
+    CLASS_ATTR = {'class': 'form-control'}
+    username = forms.CharField(label='Username', required=True, widget=forms.TextInput(attrs=CLASS_ATTR))
+    password = forms.CharField(label='Password', required=True,widget=forms.PasswordInput(attrs=CLASS_ATTR))

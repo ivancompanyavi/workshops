@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from .models import Worker
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 
 
 def home(request):
@@ -17,16 +17,21 @@ def workshops(request):
 
 def login(request):
     if request.method == 'POST':
-        form = request.POST
-        username = form.cleaned_data['username']
-        password = form.cleaned_data['password']
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                l(request, user)
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    l(request, user)
+            else:
+                print "el user es none, te cagas"
+    else:
+        form = LoginForm()
 
-    return render_to_response('login.html', {}, RequestContext(request))
+    return render_to_response('login.html', {'form': form}, RequestContext(request))
 
 
 def register(request):
@@ -41,7 +46,7 @@ def register(request):
             user.save()
             worker = Worker(user=user, team=team)
             worker.save()
-            return HttpResponseRedirect('/home')
+            return HttpResponseRedirect('/')
 
     else:
         form = RegisterForm()
