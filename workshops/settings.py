@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.contrib.messages import constants as messages
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -104,3 +105,13 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
+
+MESSAGE_TAGS = {
+    messages.INFO: 'info',
+    messages.WARNING: 'warning',
+    messages.SUCCESS: 'success',
+    messages.ERROR: 'danger'
+}
+
+MEDIA_ROOT = '/home/vagrant/workshops/uploaded_images'
+MEDIA_URL = '/media/'

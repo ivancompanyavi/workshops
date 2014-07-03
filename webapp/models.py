@@ -1,6 +1,8 @@
+import os
 from django.db import models
-from django.forms import ModelForm
 from django.contrib.auth.models import User
+from workshops.settings import STATIC_URL
+from PIL import Image
 
 
 class Option(models.Model):
@@ -62,7 +64,12 @@ class Worker(models.Model):
     workshops_subscribed = models.ManyToManyField(Workshop, related_name='subscriber', blank=True)
     achievements = models.ManyToManyField(Achievement, blank=True)
     experience = models.IntegerField(default=0)
-    avatar = models.ImageField()
+
+    def get_file_path(instance, filename):
+        extension = filename.split('.')[-1]
+        return os.path.join('profile_avatars', str(instance.user.id) + '.' + extension)
+
+    avatar = models.ImageField(upload_to=get_file_path)
 
     @property
     def level(self):
@@ -78,5 +85,29 @@ class Worker(models.Model):
 
         return current_level
 
+    def avatar_url(self):
+        if not self.avatar:
+            return os.path.join(STATIC_URL, 'images', 'noimage.png')
+        else:
+            return self.avatar.url
+
+    def save(self):
+
+        if not self.id and not self.photo:
+            return
+
+        super(Worker, self).save()
+
+        image = Image.open(self.avatar)
+        (width, height) = image.size
+
+        "Max width and height 800"
+        if width > 300:
+            width = 300
+        if height > 300:
+            height = 300
+
+        image = image.resize((width, height), Image.ANTIALIAS)
+        image.save(self.avatar.path)
     def __unicode__(self):
         return self.user.username

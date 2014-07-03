@@ -1,10 +1,11 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from .models import Worker
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, AvatarForm
 
 
 def home(request):
@@ -28,7 +29,7 @@ def make_login(request):
                     login(request, user)
                     return HttpResponseRedirect('/')
             else:
-                print "el user es none, te cagas"
+                messages.add_message(request, messages.ERROR, 'The user you introduced is not valid')
     else:
         form = LoginForm()
 
@@ -52,6 +53,7 @@ def register(request):
             user.save()
             worker = Worker(user=user, team=team)
             worker.save()
+            login(request, user)
             return HttpResponseRedirect('/')
 
     else:
@@ -60,6 +62,17 @@ def register(request):
 
 
 def profile(request):
-    print request.user.id
     worker = Worker.objects.get(user__id=request.user.id)
     return render_to_response('profile.html', {'worker': worker}, RequestContext(request))
+
+def change_avatar(request):
+    worker = Worker.objects.get(user__id=request.user.id)
+    form = AvatarForm(instance=worker)
+    if request.method == 'POST':
+        form = AvatarForm( request.POST, request.FILES, instance=worker)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/profile')
+        else:
+            print "avatar invalido"
+    return render_to_response('change_avatar.html', {'form': form}, RequestContext(request))
