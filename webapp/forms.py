@@ -26,3 +26,7 @@ class LoginForm(forms.Form):
     CLASS_ATTR = {'class': 'form-control'}
     username = forms.CharField(label='Username', required=True, widget=forms.TextInput(attrs=CLASS_ATTR))
     password = forms.CharField(label='Password', required=True,widget=forms.PasswordInput(attrs=CLASS_ATTR))
+
+class AvatarModelForm(forms.ModelForm):
+    class Meta:
+        model =

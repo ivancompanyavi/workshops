@@ -62,6 +62,7 @@ class Worker(models.Model):
     workshops_subscribed = models.ManyToManyField(Workshop, related_name='subscriber', blank=True)
     achievements = models.ManyToManyField(Achievement, blank=True)
     experience = models.IntegerField(default=0)
+    avatar = models.ImageField()
 
     @property
     def level(self):
