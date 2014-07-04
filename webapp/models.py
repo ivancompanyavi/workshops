@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.contrib.auth.models import User
 from workshops.settings import STATIC_URL
+from django.core.exceptions import ObjectDoesNotExist
 from PIL import Image
 
 
@@ -33,7 +34,7 @@ class Workshop(models.Model):
     description = models.TextField()
     prerequisites = models.TextField(blank=True)
     objectives = models.TextField()
-    questions = models.ManyToManyField(Question)
+    questions = models.ManyToManyField(Question, blank=True)
     commiter = models.ForeignKey('Worker')
 
     def __unicode__(self):
@@ -59,7 +60,7 @@ class Worker(models.Model):
         (BEE, 'Bee'),
         (REAPER, 'Reaper')
     )
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
     team = models.IntegerField(choices=TEAM_CHOICES)
     workshops_subscribed = models.ManyToManyField(Workshop, related_name='subscriber', blank=True)
     achievements = models.ManyToManyField(Achievement, blank=True)
@@ -90,10 +91,10 @@ class Worker(models.Model):
             return os.path.join(STATIC_URL, 'images', 'noimage.png')
         else:
             return self.avatar.url
-
+    """
     def save(self):
 
-        if not self.id and not self.photo:
+        if not self.id and not self.avatar:
             return
 
         super(Worker, self).save()
@@ -109,5 +110,15 @@ class Worker(models.Model):
 
         image = image.resize((width, height), Image.ANTIALIAS)
         image.save(self.avatar.path)
+    """
+
+    def get_own_workshops(self):
+        result = []
+        try:
+            result = Workshop.objects.filter(commiter_id=self.id)
+        except ObjectDoesNotExist:
+            pass
+        return result
+
     def __unicode__(self):
         return self.user.username

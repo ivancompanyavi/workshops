@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}Profile{% endblock %}
-{% block styles %}
+{% block statics %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/profile.css"/>
 {% endblock %}
 {% block content %}
@@ -43,6 +43,54 @@
                         {% endfor %}
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <a href="{% url 'create_workshop' %}" class="btn btn-block btn-success">Create Workshop</a>
+        </div>
+    </div>
+    <div class="row top-buffer">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    Your workshops
+                </div>
+                {% for workshop in worker.get_own_workshops %}
+                    <a href="/workshop_detail/{{ workshop.id }}">
+                        <div class="col-md-12 workshop-item">
+                            <div class="col-md-12">
+                                {{ workshop.name }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ workshop.questions.count }} questions
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    Workshops subscribed
+                </div>
+                {% for workshop in worker.workshops_subscribed.all %}
+                    <a href="/workshop_detail/{{ workshop.id }}">
+                        <div class="col-md-12 workshop-item">
+                            <div class="col-md-10">
+                                {{ workshop.name }}
+                            </div>
+                            <div class="col-md-2">
+                                {{ workshop.commiter.user.username }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ workshop.questions.count }} questions
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
             </div>
         </div>
     </div>

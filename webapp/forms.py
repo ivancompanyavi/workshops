@@ -1,9 +1,11 @@
 __author__ = 'ivancompany'
 
 from django import forms
-from .models import Worker
+from .models import Worker, Workshop
 from django.contrib.auth.models import User
 from django.db.models import Q
+from django.forms import TextInput, Textarea
+
 
 class RegisterForm(forms.Form):
     CLASS_ATTR = {'class': 'form-control'}
@@ -32,3 +34,16 @@ class AvatarForm(forms.ModelForm):
     class Meta:
         model = Worker
         fields = ['avatar']
+
+
+class WorkshopModelForm(forms.ModelForm):
+    class Meta:
+        CLASS_ATTR = {'class': 'form-control'}
+        model = Workshop
+        fields = ['name', 'description', 'prerequisites', 'objectives']
+        widgets = {
+            'name': TextInput(attrs=CLASS_ATTR),
+            'description': Textarea(attrs=CLASS_ATTR),
+            'prerequisites': Textarea(attrs=CLASS_ATTR),
+            'objectives': Textarea(attrs=CLASS_ATTR),
+        }
