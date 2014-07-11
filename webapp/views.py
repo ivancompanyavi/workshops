@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from .models import Worker, Workshop
-from .forms import RegisterForm, LoginForm, AvatarForm, WorkshopModelForm
+from .forms import RegisterForm, LoginForm, AvatarForm, WorkshopModelForm, QuestionModelForm
 
 
 def home(request):
@@ -81,7 +81,7 @@ def change_avatar(request):
     return render_to_response('change_avatar.html', {'form': form}, RequestContext(request))
 
 
-def create_workshop(request):
+def workshop_new(request):
     if request.method == 'POST':
         form = WorkshopModelForm(request.POST)
         if form.is_valid():
@@ -101,10 +101,20 @@ def workshop_detail(request, workshop_id):
 
 def workshop_subscribe(request, workshop_id):
     workshop = Workshop.objects.get(pk=workshop_id)
-    worker = Worker.objects.get(user=request.user)
+    worker = Worker.objects.get(user__pk=request.user.pk)
     if workshop.commiter == worker:
         messages.add_message(request, messages.ERROR, 'You are the owner of that workshop. You cannot subscribe to it')
     else:
         worker.workshops_subscribed.add(workshop)
         messages.add_message(request, messages.INFO, 'You have been successfully subscribed to the workshop "%s"' % workshop.name)
     return HttpResponseRedirect('/workshops')
+
+
+def question_add(request, workshop_id):
+    workshop = Workshop.objects.get(pk=workshop_id)
+    if request.method == 'POST':
+        form = QuestionModelForm(request.POST)
+    else:
+        form = QuestionModelForm()
+
+    return render_to_response('create_question.html', {'form': form}, RequestContext(request))

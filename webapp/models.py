@@ -92,25 +92,19 @@ class Worker(models.Model):
         else:
             return self.avatar.url
     """
-    def save(self):
+    def save(self, *args, **kwargs):
 
         if not self.id and not self.avatar:
             return
 
-        super(Worker, self).save()
+        super(Worker, self).save(*args, **kwargs)
 
+        size = (400, 300)
         image = Image.open(self.avatar)
-        (width, height) = image.size
-
-        "Max width and height 800"
-        if width > 300:
-            width = 300
-        if height > 300:
-            height = 300
-
-        image = image.resize((width, height), Image.ANTIALIAS)
+        image = image.thumbnail(size, Image.ANTIALIAS)
         image.save(self.avatar.path)
     """
+
 
     def get_own_workshops(self):
         result = []

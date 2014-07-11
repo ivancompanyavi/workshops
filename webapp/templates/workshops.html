@@ -13,10 +13,10 @@
                 <h5>{{ workshop.description }}</h5>
             </div>
             <div class="col-md-6">
-                <a href="/workshop_detail/{{ workshop.id }}" class="btn btn-block btn-info">View details</a>
+                <a href="/workshops/{{ workshop.id }}/detail/" class="btn btn-block btn-info">View details</a>
             </div>
             <div class="col-md-6">
-                <a href="/workshop_subscribe/{{ workshop.id }}" class="btn btn-block btn-success">Subscribe</a>
+                <a href="/workshops/{{ workshop.id }}/subscribe/" class="btn btn-block btn-success">Subscribe</a>
             </div>
         </div>
     {% endfor %}

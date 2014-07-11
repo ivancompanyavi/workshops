@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Workshops{% endblock %}
 {% block content %}
+    <div class="row">
         <div class="col-md-12 workshop-item">
             <div class="col-md-10">
                 <h4>{{ workshop.name }}</h4>
@@ -21,4 +22,20 @@
                 <h5>{{ workshop.objectives }}</h5>
             </div>
         </div>
+    </div>
+    <div class="row">
+        Questions
+    </div>
+    {% for question in workshop.questions.all %}
+        <div class="row">
+            <div class="col-md-12">
+                    {{ workshop.name }}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="row">
+        <div class="col-md-12">
+            <a href="/workshops/{{ workshop.id }}/add_question" class="btn btn-block btn-success">Add question</a>
+        </div>
+    </div>
 {% endblock %}

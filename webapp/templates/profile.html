@@ -48,7 +48,7 @@
     </div>
     <div class="row top-buffer">
         <div class="col-md-12">
-            <a href="{% url 'create_workshop' %}" class="btn btn-block btn-success">Create Workshop</a>
+            <a href="{% url 'workshops/new' %}" class="btn btn-block btn-success">Create Workshop</a>
         </div>
     </div>
     <div class="row top-buffer">
@@ -58,7 +58,7 @@
                     Your workshops
                 </div>
                 {% for workshop in worker.get_own_workshops %}
-                    <a href="/workshop_detail/{{ workshop.id }}">
+                    <a href="/workshops/{{ workshop.id }}/detail/">
                         <div class="col-md-12 workshop-item">
                             <div class="col-md-12">
                                 {{ workshop.name }}

@@ -1,7 +1,7 @@
 __author__ = 'ivancompany'
 
 from django import forms
-from .models import Worker, Workshop
+from .models import Worker, Workshop, Question
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.forms import TextInput, Textarea
@@ -47,3 +47,12 @@ class WorkshopModelForm(forms.ModelForm):
             'prerequisites': Textarea(attrs=CLASS_ATTR),
             'objectives': Textarea(attrs=CLASS_ATTR),
         }
+
+class QuestionModelForm(forms.ModelForm):
+    class Meta:
+        CLASS_ATTR = {'class': 'form-control'}
+        model = Question
+        fields = ['description', 'options']
+        widgets = {
+            'description': Textarea(attrs=CLASS_ATTR),
+            }

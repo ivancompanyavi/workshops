@@ -6,15 +6,16 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^workshops/', 'webapp.views.workshops', name='workshops'),
+    url(r'^workshops/$', 'webapp.views.workshops', name='workshops'),
     url(r'^login/', 'webapp.views.make_login', name='login'),
     url(r'^logout/', 'webapp.views.make_logout', name='logout'),
     url(r'^register/', 'webapp.views.register', name='register'),
     url(r'^profile/', 'webapp.views.profile', name='profile'),
     url(r'^change_avatar/', 'webapp.views.change_avatar', name='change_avatar'),
-    url(r'^create_workshop/', 'webapp.views.create_workshop', name='create_workshop'),
-    url(r'^workshop_detail/(?P<workshop_id>\d+)/?$', 'webapp.views.workshop_detail', name='workshop_detail'),
-    url(r'^workshop_subscribe/(?P<workshop_id>\d+)/?$', 'webapp.views.workshop_subscribe', name='workshop_subscribe'),
+    url(r'^workshops/new/?', 'webapp.views.workshop_new', name='workshop_new'),
+    url(r'^workshops/(?P<workshop_id>\d+)/detail/?$', 'webapp.views.workshop_detail', name='workshop_detail'),
+    url(r'^workshops/(?P<workshop_id>\d+)/subscribe/?$', 'webapp.views.workshop_subscribe', name='workshop_subscribe'),
+    url(r'^workshops/(?P<workshop_id>\d+)/add_question/?$', 'webapp.views.question_add', name='workshop_subscribe'),
     url(r'^$', 'webapp.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
