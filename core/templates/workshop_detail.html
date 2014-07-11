@@ -27,15 +27,19 @@
         Questions
     </div>
     {% for question in workshop.questions.all %}
+        <a href="{% url 'question_detail' workshop.id question.id %}">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ workshop.name }}
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    {% if workshop.commiter.user == request.user %}
         <div class="row">
             <div class="col-md-12">
-                    {{ workshop.name }}
+                <a href="{% url 'question_new' workshop.id %}" class="btn btn-block btn-success">Add question</a>
             </div>
         </div>
-    {% endfor %}
-    <div class="row">
-        <div class="col-md-12">
-            <a href="/workshops/{{ workshop.id }}/add_question" class="btn btn-block btn-success">Add question</a>
-        </div>
-    </div>
+    {% endif %}
 {% endblock %}

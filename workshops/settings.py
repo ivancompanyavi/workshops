@@ -48,7 +48,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'webapp',
+    'core',
+    'user_profile',
+    'workshop',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,11 +101,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'core', 'static'),
 )
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'core', 'templates'),
 )
 
 MESSAGE_TAGS = {

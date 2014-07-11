@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Question detail{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{% url 'workshop_detail' workshop.id %}">
+                Workshop: {{ workshop.description }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 workshop-item">
+            <h4>{{ question.description }}</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            Options
+        </div>
+    </div>
+    <div class="row">
+        {% for o in question.options.all %}
+            <div class="col-md-12">
+                {{ o.description }}
+            </div>
+        {% endfor %}
+    </div>
+    {% if answer %}
+        <div class="row">
+            <div class="col-md-12">
+                Correct option: {{ question.correct_option.description }}
+            </div>
+            <div class="col-md-12">
+                Your option: {{ answer.answer.description }}
+            </div>
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                Submit your option:
+            </div>
+        </div>
+            <form method="post" action="{% url 'question_detail' workshop.id question.id %}">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit option" class="btn btn-block btn-success"/>
+            </form>
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+            </div>
+    {% endif %}
+{% endblock %}

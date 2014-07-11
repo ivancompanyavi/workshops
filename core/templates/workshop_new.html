@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <form action="/create_workshop/" method="post">
+            <form action="{% url 'workshop_new' %}" method="post">
                 {% csrf_token %}
                 {{ form }}
                 <input type="submit" class="btn btn-block btn-info" value="Create Workshop"/>

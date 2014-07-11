@@ -1,10 +1,9 @@
-__author__ = 'ivancompany'
 
 from django import forms
-from .models import Worker, Workshop, Question
 from django.contrib.auth.models import User
 from django.db.models import Q
-from django.forms import TextInput, Textarea
+
+from core.models import Worker
 
 
 class RegisterForm(forms.Form):
@@ -34,25 +33,3 @@ class AvatarForm(forms.ModelForm):
     class Meta:
         model = Worker
         fields = ['avatar']
-
-
-class WorkshopModelForm(forms.ModelForm):
-    class Meta:
-        CLASS_ATTR = {'class': 'form-control'}
-        model = Workshop
-        fields = ['name', 'description', 'prerequisites', 'objectives']
-        widgets = {
-            'name': TextInput(attrs=CLASS_ATTR),
-            'description': Textarea(attrs=CLASS_ATTR),
-            'prerequisites': Textarea(attrs=CLASS_ATTR),
-            'objectives': Textarea(attrs=CLASS_ATTR),
-        }
-
-class QuestionModelForm(forms.ModelForm):
-    class Meta:
-        CLASS_ATTR = {'class': 'form-control'}
-        model = Question
-        fields = ['description', 'options']
-        widgets = {
-            'description': Textarea(attrs=CLASS_ATTR),
-            }

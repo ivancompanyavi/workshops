@@ -10,7 +10,7 @@
                 <div class="col-md-3">
                     <div class="row">
                         <div class="col-md-12">
-                            <a href="/change_avatar/">
+                            <a href="{% url 'change_avatar' %}">
                                 <img src="{{ worker.avatar_url }}"/>
                             </a>
                         </div>
@@ -48,7 +48,7 @@
     </div>
     <div class="row top-buffer">
         <div class="col-md-12">
-            <a href="{% url 'workshops/new' %}" class="btn btn-block btn-success">Create Workshop</a>
+            <a href="{% url 'workshop_new' %}" class="btn btn-block btn-success">Create Workshop</a>
         </div>
     </div>
     <div class="row top-buffer">
@@ -57,8 +57,8 @@
                 <div class="col-md-12">
                     Your workshops
                 </div>
-                {% for workshop in worker.get_own_workshops %}
-                    <a href="/workshops/{{ workshop.id }}/detail/">
+                {% for workshop in commited_workshops %}
+                    <a href="{% url 'workshop_detail' workshop.id %}">
                         <div class="col-md-12 workshop-item">
                             <div class="col-md-12">
                                 {{ workshop.name }}
@@ -77,7 +77,7 @@
                     Workshops subscribed
                 </div>
                 {% for workshop in worker.workshops_subscribed.all %}
-                    <a href="/workshop_detail/{{ workshop.id }}">
+                    <a href="{% url 'workshop_detail' workshop.id %}">
                         <div class="col-md-12 workshop-item">
                             <div class="col-md-10">
                                 {{ workshop.name }}
