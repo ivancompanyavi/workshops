@@ -55,15 +55,17 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    Your workshops
+                    <h1>Your workshops</h1>
                 </div>
+            </div>
+            <div class="row panel">
                 {% for workshop in commited_workshops %}
                     <a href="{% url 'workshop_detail' workshop.id %}">
-                        <div class="col-md-12 workshop-item">
-                            <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="col-md-9">
                                 {{ workshop.name }}
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-3">
                                 {{ workshop.questions.count }} questions
                             </div>
                         </div>
@@ -74,8 +76,10 @@
         <div class="col-md-6">
             <div class="row">
                 <div class="col-md-12">
-                    Workshops subscribed
+                    <h1>Workshops subscribed</h1>
                 </div>
+            </div>
+            <div class="row panel">
                 {% for workshop in worker.workshops_subscribed.all %}
                     <a href="{% url 'workshop_detail' workshop.id %}">
                         <div class="col-md-12 workshop-item">

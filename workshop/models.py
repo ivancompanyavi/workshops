@@ -35,6 +35,7 @@ class Workshop(models.Model):
     objectives = models.TextField()
     questions = models.ManyToManyField(Question, blank=True)
     commiter = models.ForeignKey(Worker)
+    comments = models.ManyToManyField('Comment')
     subscriptions = models.ManyToManyField(Worker, related_name='subscriber', blank=True)
 
     def __unicode__(self):
@@ -46,3 +47,9 @@ class Answer(models.Model):
     workshop = models.ForeignKey(Workshop)
     question = models.ForeignKey(Question)
     answer = models.ForeignKey(Option)
+
+
+class Comment(models.Model):
+    worker = models.ForeignKey(Worker)
+    message = models.TextField()
+    date = models.DateField()

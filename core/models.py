@@ -51,6 +51,8 @@ class Worker(models.Model):
         self.experience += points
         level = self.level
         if level_backup != level:
+            #In the future, this will be an achievement
+            pass
 
 
 

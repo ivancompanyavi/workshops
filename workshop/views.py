@@ -4,8 +4,9 @@ from core.models import Worker
 from django.template import RequestContext
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from .forms import WorkshopModelForm, QuestionAnswerForm
-from workshop.forms import QuestionModelForm
+from .forms import WorkshopModelForm, QuestionAnswerForm, QuestionModelForm, NewCommentForm
+from .models import Comment
+from datetime import datetime
 
 
 def workshops(request):
@@ -28,7 +29,18 @@ def workshop_new(request):
 
 def workshop_detail(request, workshop_id):
     workshop = Workshop.objects.get(pk=workshop_id)
-    return render_to_response('workshop_detail.html', {'workshop': workshop}, RequestContext(request))
+    if request.method == 'POST':
+        form = NewCommentForm(request.POST)
+        if form.is_valid():
+            worker = Worker.objects.get(user__pk=request.user.pk)
+            msg = form.cleaned_data['message']
+            comment = Comment.objects.create(message=msg, worker=worker, date=datetime.now())
+            comment.save()
+            workshop.comments.add(comment)
+            return redirect('workshop_detail', workshop_id=workshop_id)
+    else:
+        form = NewCommentForm()
+    return render_to_response('workshop_detail.html', {'workshop': workshop, 'form': form}, RequestContext(request))
 
 
 def workshop_subscribe(request, workshop_id):

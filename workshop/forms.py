@@ -1,10 +1,10 @@
 from django import forms
 from .models import Workshop, Question
 
+CLASS_ATTR = {'class': 'form-control'}
 
 class WorkshopModelForm(forms.ModelForm):
     class Meta:
-        CLASS_ATTR = {'class': 'form-control'}
         model = Workshop
         fields = ['name', 'description', 'prerequisites', 'objectives']
         widgets = {
@@ -16,7 +16,6 @@ class WorkshopModelForm(forms.ModelForm):
 
 
 class QuestionModelForm(forms.ModelForm):
-    CLASS_ATTR = {'class': 'form-control'}
     OPTION_CHOICES = ((0, 'Option 1'),
                       (1, 'Option 2'),
                       (2, 'Option 3'),
@@ -29,7 +28,6 @@ class QuestionModelForm(forms.ModelForm):
     correct_option = forms.ChoiceField(label='Correct option', choices=OPTION_CHOICES, widget=forms.Select(attrs=CLASS_ATTR))
 
     class Meta:
-        CLASS_ATTR = {'class': 'form-control'}
         model = Question
         fields = ['description']
         widgets = {
@@ -49,3 +47,7 @@ class QuestionAnswerForm(forms.Form):
         super(QuestionAnswerForm, self).__init__(*args, **kwargs)
 
         self.fields['answer'] = forms.ChoiceField(label='Answer', choices=options)
+
+
+class NewCommentForm(forms.Form):
+    message = forms.CharField(label="New comment", widget=forms.Textarea(attrs=CLASS_ATTR))

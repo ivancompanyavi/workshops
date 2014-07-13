@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Option, Workshop, Answer
+from .models import Question, Option, Workshop, Answer, Comment
 # Register your models here.
 
 
@@ -17,3 +17,4 @@ admin.site.register(Workshop, WorkshopAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Option)
 admin.site.register(Answer)
+admin.site.register(Comment)
