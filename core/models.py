@@ -46,15 +46,6 @@ class Worker(models.Model):
 
         return current_level
 
-    def level_up(self, points):
-        level_backup = self.level
-        self.experience += points
-        level = self.level
-        if level_backup != level:
-            #In the future, this will be an achievement
-            pass
-
-
 
     def avatar_url(self):
         if not self.avatar:

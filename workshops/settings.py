@@ -117,3 +117,8 @@ MESSAGE_TAGS = {
 
 MEDIA_ROOT = '/home/vagrant/workshops/uploaded_images'
 MEDIA_URL = '/media/'
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

@@ -35,11 +35,12 @@
             </div>
         </div>
     {% else %}
-        <div class="row">
-            <div class="col-md-12">
-                Submit your option:
+        {% if workshop.commiter.user.id != request.user.id %}
+            <div class="row">
+                <div class="col-md-12">
+                    Submit your option:
+                </div>
             </div>
-        </div>
             <form method="post" action="{% url 'question_detail' workshop.id question.id %}">
                 {% csrf_token %}
                 {{ form }}
@@ -50,5 +51,6 @@
 
                 </div>
             </div>
+        {% endif %}
     {% endif %}
 {% endblock %}
