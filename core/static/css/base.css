@@ -1,21 +1,19 @@
-body{
+body {
     color: #828282;
     background-color: #eee;
 }
 
-.panel{
+.panel {
     background-color: #ffffff;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
-.top-buffer{
+.top-buffer {
     padding-top: 20px;
 }
 
-.workshop-item{
+.workshop-item {
     background: #afd9ee;
     border-radius: 10px;
-}
-.with-margin {
-  margin-right:10px;
-  margin-left:10px;
 }

@@ -4,64 +4,61 @@
     <link rel="stylesheet" href="{{ STATIC_URL }}css/profile.css"/>
 {% endblock %}
 {% block content %}
-    <div class="resume">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-3">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="{% url 'change_avatar' %}">
-                                <img src="{{ worker.avatar_url }}"/>
-                            </a>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row panel">
+                <div class="col-md-12">
+                    <h1>Profile</h1>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="{% url 'change_avatar' %}">
+                                    <img src="{{ worker.avatar_url }}"/>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form method="post" action="{% url 'change_avatar' %}">
+                                    {{ avatarForm }}
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form method="post" action="/upload_avatar">
-                                {{ avatarForm }}
-                            </form>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-md-8">
+                                {{ worker.user.username }}
+                            </div>
+                            <div class="col-md-4">
+                                Level {{ worker.level }} <h6>{{ worker.experience }} exp.</h6>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9">
-                    <div class="row">
-                        <div class="col-md-8">
-                            {{ worker.user.username }}
-                        </div>
-                        <div class="col-md-4">
-                            Level {{ worker.level }} <h6>{{ worker.experience }} exp.</h6>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            Achievements
-                        </div>
-                    </div>
-                    <div class="row">
-                        {% for a in worker.achievements_set %}
-                            <img src="{{ a.image.url }}" alt="{{ a.name }}"/>
-                        {% endfor %}
-                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row panel">
+                <div class="col-md-12">
+                    <h1>Achievements</h1>
+                </div>
+                <div class="col-md-12">
+                    {% for a in worker.achievements_set %}
+                        <img src="{{ a.image.url }}" alt="{{ a.name }}"/>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
     <div class="row top-buffer">
-        <div class="col-md-12">
-            <a href="{% url 'workshop_new' %}" class="btn btn-block btn-success">Create Workshop</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <h1>Your workshops</h1>
-        </div>
-        <div class="col-md-6">
-            <h1>Workshops subscribed</h1>
-        </div>
-    </div>
-    <div class="row top-buffer">
         <div class="col-md-6">
             <div class="row panel">
+                <div class="col-md-12">
+                    <h1>Your workshops</h1>
+                </div>
                 {% for workshop in commited_workshops %}
                     <a href="{% url 'workshop_detail' workshop.id %}">
                         <div class="col-md-11">
@@ -79,10 +76,16 @@
                         </a>
                     </div>
                 {% endfor %}
+                <div class="col-md-12">
+                    <a href="{% url 'workshop_new' %}" class="btn btn-block btn-success">Create Workshop</a>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="row panel">
+                <div class="col-md-12">
+                    <h1>Workshops subscribed</h1>
+                </div>
                 {% for workshop in worker.workshops_subscribed.all %}
                     <a href="{% url 'workshop_detail' workshop.id %}">
                         <div class="col-md-12 workshop-item">
