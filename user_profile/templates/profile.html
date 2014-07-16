@@ -86,18 +86,19 @@
                 <div class="col-md-12">
                     <h1>Workshops subscribed</h1>
                 </div>
-                {% for workshop in worker.workshops_subscribed.all %}
+                {% for workshop in worker.subscriber.all %}
                     <a href="{% url 'workshop_detail' workshop.id %}">
-                        <div class="col-md-12 workshop-item">
-                            <div class="col-md-10">
+                        <div class="col-md-12">
+                            <div class="col-md-7">
                                 {{ workshop.name }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ workshop.questions.count }} questions
                             </div>
                             <div class="col-md-2">
                                 {{ workshop.commiter.user.username }}
                             </div>
-                            <div class="col-md-12">
-                                {{ workshop.questions.count }} questions
-                            </div>
+
                         </div>
                     </a>
                 {% endfor %}

@@ -31,7 +31,7 @@ class QuestionModelForm(forms.ModelForm):
         model = Question
         fields = ['description']
         widgets = {
-            'description': forms.Textarea(attrs=CLASS_ATTR),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
             }
 
 
@@ -50,4 +50,4 @@ class QuestionAnswerForm(forms.Form):
 
 
 class NewCommentForm(forms.Form):
-    message = forms.CharField(label="New comment", widget=forms.Textarea(attrs=CLASS_ATTR))
+    message = forms.CharField(label="New comment", widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 2}))

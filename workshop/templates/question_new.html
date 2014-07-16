@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}Create Question{% endblock %}
 {% block content %}
-    <form action="{% url 'question_new' workshop.id %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" class="btn btn-block btn-success" value="Submit question"/>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row panel">
+                    <div class="col-md-12">
+                        <form action="{% url 'question_new' workshop.id %}" method="post">
+                            {% csrf_token %}
+                            {{ form }}
+                            <br/>
+                            <input type="submit" class="btn btn-block btn-success" value="Submit question"/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

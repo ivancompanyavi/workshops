@@ -2,75 +2,84 @@
 {% block title %}Workshops{% endblock %}
 {% block content %}
     <div class="row">
-        <div class="col-md-9">
-            <h1>{{ workshop.name }}</h1>
-        </div>
-        <div class="col-md-3">
-            <h3>by {{ workshop.commiter }}</h3>
-        </div>
-    </div>
-    <div class="row panel">
-        <div class="col-md-12">
-            <div class="col-md-12">
-                <h1>Description</h1>
-                {{ workshop.description }}
-            </div>
-            <div class="col-md-12">
-                <h1>Prerequisites</h1>
-                {{ workshop.prerequisites }}
-            </div>
-            <div class="col-md-12">
-                <h1>Objectives</h1>
-                {{ workshop.objectives }}
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Comments</h1>
-        </div>
-    </div>
-    <div class="panel">
-        {% for comment in workshop.comments.all %}
-            <div class="row">
-                <div class="col-md-10">
-                    {{ comment.message }}
+        <div class="col-md-6">
+            <div class="row panel">
+                <div class="col-md-9">
+                    <h1>{{ workshop.name }}</h1>
                 </div>
-                <div class="col-md-2">
-                    {{ comment.worker }}
+                <div class="col-md-3">
+                    <h3>by {{ workshop.commiter }}</h3>
                 </div>
-                {% if not forloop.last %}
+                <div class="col-md-12">
                     <div class="col-md-12">
-                        <hr/>
+                        <h1>Description</h1>
+                        {{ workshop.description }}
+                    </div>
+                    <div class="col-md-12">
+                        <h1>Prerequisites</h1>
+                        {{ workshop.prerequisites }}
+                    </div>
+                    <div class="col-md-12">
+                        <h1>Objectives</h1>
+                        {{ workshop.objectives }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row panel">
+                <div class="col-md-12">
+                    <h1>Questions</h1>
+                </div>
+                {% if not workshop.questions.all %}
+                    <div class="col-md-12">
+                        There are no questions
+                    </div>
+                {% endif %}
+                {% for question in workshop.questions.all %}
+                    <a href="{% url 'question_detail' workshop.id question.id %}">
+                        <div class="col-md-12">
+                            {{ question.description }}
+                        </div>
+                    </a>
+                {% endfor %}
+                {% if workshop.commiter.user == request.user %}
+                    <div class="col-md-12 top-buffer">
+                        <a href="{% url 'question_new' workshop.id %}" class="btn btn-block btn-success">Add
+                            question</a>
                     </div>
                 {% endif %}
             </div>
-        {% endfor %}
+        </div>
     </div>
-    <form method="post" action="{% url 'workshop_detail' workshop.id %}">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Add comment" class="btn btn-block btn-success"/>
-    </form>
     <div class="row">
-        <h1>
-            Questions
-        </h1>
-    </div>
-    {% for question in workshop.questions.all %}
-        <a href="{% url 'question_detail' workshop.id question.id %}">
+        <div class="col-md-12">
             <div class="row panel">
                 <div class="col-md-12">
-                    {{ question.description}}
+                    <h1>Comments</h1>
+                </div>
+                {% for comment in workshop.comments.all %}
+                    <div class="col-md-10">
+                        {{ comment.message }}
+                    </div>
+                    <div class="col-md-2">
+                        {{ comment.worker }}
+                    </div>
+                    {% if not forloop.last %}
+                        <div class="col-md-12">
+                            <hr/>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <div class="col-md-12">
+                    <form method="post" action="{% url 'workshop_detail' workshop.id %}">
+                        {% csrf_token %}
+                        {{ form }}
+                        <br />
+                        <input type="submit" value="Add comment" class="btn btn-block btn-success"/>
+                    </form>
                 </div>
             </div>
-        </a>
-    {% endfor %}
-    {% if workshop.commiter.user == request.user %}
-        <div class="row">
-            <div class="col-md-12">
-                <a href="{% url 'question_new' workshop.id %}" class="btn btn-block btn-success">Add question</a>
-            </div>
         </div>
-    {% endif %}
+    </div>
 {% endblock %}

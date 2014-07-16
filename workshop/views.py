@@ -14,7 +14,11 @@ from datetime import datetime
 
 def workshops(request):
     w = Workshop.objects.all()
-    return render_to_response('workshop_list.html', {'workshops': w}, RequestContext(request))
+    try:
+        worker = Worker.objects.get(user__pk=request.user.pk)
+    except ObjectDoesNotExist:
+        worker = None
+    return render_to_response('workshop_list.html', {'workshops': w, 'worker': worker}, RequestContext(request))
 
 
 @login_required
@@ -63,12 +67,18 @@ def workshop_delete(request, workshop_id):
 def workshop_subscribe(request, workshop_id):
     workshop = Workshop.objects.get(pk=workshop_id)
     worker = Worker.objects.get(user__pk=request.user.pk)
-    if workshop.commiter == worker:
-        messages.add_message(request, messages.ERROR, 'You are the owner of that workshop. You cannot subscribe to it')
-    else:
-        worker.workshops_subscribed.add(workshop)
-        messages.add_message(request, messages.INFO,
-                             'You have been successfully subscribed to the workshop "%s"' % workshop.name)
+    workshop.subscriptions.add(worker)
+    messages.add_message(request, messages.INFO,
+                         'You have been successfully subscribed to the workshop "%s"' % workshop.name)
+    return redirect('workshop_list')
+
+@login_required
+def workshop_unsubscribe(request, workshop_id):
+    workshop = Workshop.objects.get(pk=workshop_id)
+    worker = Worker.objects.get(user__pk=request.user.pk)
+    workshop.subscriptions.remove(worker)
+    messages.add_message(request, messages.INFO,
+                         'You have been successfully unsubscribed to the workshop "%s"' % workshop.name)
     return redirect('workshop_list')
 
 @login_required
