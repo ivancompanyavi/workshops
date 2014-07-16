@@ -2,24 +2,44 @@
 {% block title %}Workshops{% endblock %}
 {% block content %}
     {% for workshop in workshops %}
-        <div class="col-md-12 workshop-item ">
-            <div class="col-md-10">
-                <h4>{{ workshop.name }}</h4>
-            </div>
-            <div class="col-md-2">
-                <h5>{{ workshop.commiter }}</h5>
-            </div>
-            <div class="col-md-12">
-                <h5>{{ workshop.description }}</h5>
-            </div>
-            <div class="col-md-6">
-                <a href="/workshops/{{ workshop.id }}/detail/" class="btn btn-block btn-info">View details</a>
-            </div>
-            {% if workshop.commiter.user != request.user %}
-                <div class="col-md-6">
-                    <a href="/workshops/{{ workshop.id }}/subscribe/" class="btn btn-block btn-success">Subscribe</a>
+        {% if forloop.counter0|divisibleby:"3" %}
+            {% if not forloop.first %}
                 </div>
             {% endif %}
+            <div class="row">
+            {% if forloop.counter0 == workshops|length|add:"-2" %}
+                <div class="col-md-6">
+            {% elif forloop.last %}
+                <div class="col-md-12">
+            {% else %}
+                <div class="col-md-4">
+            {% endif %}
+        {% else %}
+            {% if forloop.last and forloop.counter0|add:"-1"|divisibleby:"3" %}
+                <div class="col-md-6">
+            {% else %}
+                <div class="col-md-4">
+            {% endif %}
+        {% endif %}
+    <div class="row with-margin panel">
+        <div class="col-md-10">
+            <h4>{{ workshop.name }}</h4>
         </div>
+        <div class="col-md-2">
+            <h5>{{ workshop.commiter }}</h5>
+        </div>
+        <div class="col-md-12">
+            <h5>{{ workshop.description }}</h5>
+        </div>
+        <div class="col-md-6">
+            <a href="/workshops/{{ workshop.id }}/detail/" class="btn btn-block btn-info">View details</a>
+        </div>
+        {% if workshop.commiter.user != request.user %}
+            <div class="col-md-6">
+                <a href="/workshops/{{ workshop.id }}/subscribe/" class="btn btn-block btn-success">Subscribe</a>
+            </div>
+        {% endif %}
+    </div>
+    </div>
     {% endfor %}
 {% endblock %}

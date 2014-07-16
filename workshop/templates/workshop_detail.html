@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Workshops{% endblock %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <h1>{{ workshop.name }}</h1>
-            </div>
-            <div class="col-md-3">
-                <h3>by {{ workshop.commiter }}</h3>
-            </div>
+    <div class="row">
+        <div class="col-md-9">
+            <h1>{{ workshop.name }}</h1>
+        </div>
+        <div class="col-md-3">
+            <h3>by {{ workshop.commiter }}</h3>
         </div>
     </div>
     <div class="row panel">
@@ -63,7 +61,7 @@
         <a href="{% url 'question_detail' workshop.id question.id %}">
             <div class="row panel">
                 <div class="col-md-12">
-                    {{ workshop.name }}
+                    {{ question.description}}
                 </div>
             </div>
         </a>

@@ -15,3 +15,7 @@ body{
     background: #afd9ee;
     border-radius: 10px;
 }
+.with-margin {
+  margin-right:10px;
+  margin-left:10px;
+}

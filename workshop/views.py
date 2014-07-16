@@ -23,8 +23,10 @@ def workshop_new(request):
         form = WorkshopModelForm(request.POST)
         if form.is_valid():
             workshop_model = form.save(commit=False)
-            workshop_model.commiter = Worker.objects.get(user=request.user)
-            workshop_model.commiter.experience += LevelPoints.CREATE_WORKSHOP
+            worker = Worker.objects.get(user=request.user)
+            worker.experience += LevelPoints.CREATE_WORKSHOP
+            worker.save()
+            workshop_model.commiter = worker
             workshop_model.save()
             return redirect('profile')
     else:
@@ -86,7 +88,9 @@ def question_new(request, workshop_id):
             question.save()
             [question.options.add(o) for o in opts]
             workshop.questions.add(question)
-            workshop.commiter.experience += LevelPoints.CREATE_QUESTION
+            worker = workshop.commiter
+            worker.experience += LevelPoints.CREATE_QUESTION
+            worker.save()
             workshop.save()
             return redirect('workshop_detail', workshop_id=workshop_id)
 
