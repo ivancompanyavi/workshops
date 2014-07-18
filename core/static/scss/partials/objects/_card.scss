@@ -1,0 +1,40 @@
+.card {
+  padding: 1em;
+  margin-bottom: 1em;
+  background: #eee;
+  border: .5em solid #fff;
+  opacity: 1;
+  display: inline-block;
+  width: 100%;
+}
+
+.card__info {
+  overflow: hidden;
+  margin-top: 1em;
+  font-size: 11px;
+}
+
+.card__info dt {
+  float: left;
+}
+
+.card__info dd {
+  float: right;
+}
+
+.card__info dt {
+  clear: left;
+  margin-right: .5em;
+  font-weight: bold;
+}
+
+.more {
+  margin-top: 1em;
+  display: inline-block;
+}
+
+.card--centered {
+  width: 500px;
+  margin: 0 auto;
+
+}

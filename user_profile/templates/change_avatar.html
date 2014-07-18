@@ -3,7 +3,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <form action="/change_avatar/" method="post" enctype="multipart/form-data">
+            <form action="{% url 'change_avatar' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form }}
                 <input type="submit" class="btn btn-block btn-info" value="Change avatar"/>

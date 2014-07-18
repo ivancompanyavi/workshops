@@ -22,5 +22,4 @@ urlpatterns = patterns('',
                        url(r'^/?$', 'workshop.views.workshops', name='workshop_list'),
                        url(r'^admin/', include(admin.site.urls)),
 )
-
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

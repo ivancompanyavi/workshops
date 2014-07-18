@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <div class="list">
+        {% for sug in suggestions %}
+            <div class="card">
+                <div class="card__info">
+                    <h2>{{ sug.suggester.user.username }}</h2>
+                    {{ sug.message }}
+                </div>
+                {% if request.user.id == sug.suggester.user.id %}
+                    <a href="{% url 'suggestion_delete' sug.id %}">
+                        Delete
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="card">
+        <form method="post" action="{% url 'suggestion_add' %}">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="New suggestion"/>
+        </form>
+    </div>
+{% endblock %}

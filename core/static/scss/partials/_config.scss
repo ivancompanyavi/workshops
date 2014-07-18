@@ -1,0 +1,26 @@
+// Image routes
+$img: '../images/';
+
+/* Colors */
+$color-background: #DDD;
+$color-text: #444;
+$color-headers: #AD5472;
+$color-link: #6C9380;
+$color-link-hover: #C0CA55;
+$color-important: #F07C6C;
+
+/* Fonts */
+// Base font
+  $font-family-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  $line-height-body: 1.5;
+  $font-body: small/$line-height-body $font-family-body;
+
+// Alternative font
+  $font-family-headers: Raleway, Futura, "Trebuchet MS", sans-serif;
+  $line-height-headers: 1.5;
+  $font-headers: normal x-large/$line-height-headers $font-family-headers;
+
+  /* Spacers */
+  $spacer-L: 2rem;
+  $spacer: 1rem;
+  $spacer-S: .5rem;

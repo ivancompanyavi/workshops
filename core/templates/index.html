@@ -1,4 +1,15 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
+    <div class="list">
+        <div class="card">
+            <h1 class="title">Top users</h1>
+            <dl class="card__info">
+                {% for worker in top_workers %}
+                    <dt>{{ worker.user.username }}</dt>
+                    <dd>level {{ worker.level }} ({{ worker.experience }} exp.)</dd>
+                {% endfor %}
+            </dl>
+        </div>
+    </div>
 {% endblock %}

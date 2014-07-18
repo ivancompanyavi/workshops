@@ -5,3 +5,4 @@ vendor
 .DS_Store
 .vagrant
 local_settings.py
+.sass-cache

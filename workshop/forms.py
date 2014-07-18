@@ -1,17 +1,16 @@
 from django import forms
 from .models import Workshop, Question
 
-CLASS_ATTR = {'class': 'form-control'}
 
 class WorkshopModelForm(forms.ModelForm):
     class Meta:
         model = Workshop
         fields = ['name', 'description', 'prerequisites', 'objectives']
         widgets = {
-            'name': forms.TextInput(attrs=CLASS_ATTR),
-            'description': forms.Textarea(attrs=CLASS_ATTR),
-            'prerequisites': forms.Textarea(attrs=CLASS_ATTR),
-            'objectives': forms.Textarea(attrs=CLASS_ATTR),
+            'name': forms.TextInput(),
+            'description': forms.Textarea(),
+            'prerequisites': forms.Textarea(),
+            'objectives': forms.Textarea(),
         }
 
 
@@ -20,12 +19,12 @@ class QuestionModelForm(forms.ModelForm):
                       (1, 'Option 2'),
                       (2, 'Option 3'),
                       (3, 'Option 4'))
-    opt_1 = forms.CharField(label='Option 1', widget=forms.TextInput(attrs=CLASS_ATTR))
-    opt_2 = forms.CharField(label='Option 2', widget=forms.TextInput(attrs=CLASS_ATTR))
-    opt_3 = forms.CharField(label='Option 3', widget=forms.TextInput(attrs=CLASS_ATTR))
-    opt_4 = forms.CharField(label='Option 4', widget=forms.TextInput(attrs=CLASS_ATTR))
+    opt_1 = forms.CharField(label='Option 1', widget=forms.TextInput())
+    opt_2 = forms.CharField(label='Option 2', widget=forms.TextInput())
+    opt_3 = forms.CharField(label='Option 3', widget=forms.TextInput())
+    opt_4 = forms.CharField(label='Option 4', widget=forms.TextInput())
 
-    correct_option = forms.ChoiceField(label='Correct option', choices=OPTION_CHOICES, widget=forms.Select(attrs=CLASS_ATTR))
+    correct_option = forms.ChoiceField(label='Correct option', choices=OPTION_CHOICES, widget=forms.Select())
 
     class Meta:
         model = Question

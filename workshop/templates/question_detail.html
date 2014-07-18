@@ -1,68 +1,35 @@
 {% extends 'base.html' %}
 {% block title %}Question detail{% endblock %}
 {% block content %}
-    <div class="row panel">
-        <div class="col-md-12">
-            <a href="{% url 'workshop_detail' workshop.id %}">
-                Workshop: {{ workshop.description }}
-            </a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h1>{{ question.description }}</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-           <h2>Options</h2>
-        </div>
-    </div>
-    <div class="row panel">
-        <ul>
-        {% for o in question.options.all %}
-                <li>{{ o.description }}</li>
-        {% endfor %}
-        </ul>
-    </div>
-    {% if answer %}
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Correct option</h2>
-            </div>
-        </div>
-        <div class="row panel">
-            <div class="col-md-12">
-                {{ question.correct_option.description }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Your option</h1>
-            </div>
-        </div>
-        <div class="row panel">
-            <div class="col-md-12">
-                {{ answer.answer.description }}
-            </div>
-        </div>
-    {% else %}
-        {% if workshop.commiter.user.id != request.user.id %}
-            <div class="row">
-                <div class="col-md-12">
-                    Submit your option:
-                </div>
-            </div>
-            <form method="post" action="{% url 'question_detail' workshop.id question.id %}">
-                {% csrf_token %}
-                {{ form }}
-                <input type="submit" value="Submit option" class="btn btn-block btn-success"/>
-            </form>
-            <div class="row">
-                <div class="col-md-12">
+    <div class="card">
+        <h1 class="title">{{ question.description }}</h1>
 
-                </div>
-            </div>
-        {% endif %}
-    {% endif %}
+        <div class="card__info">
+            <ul>
+                {% for o in question.options.all %}
+                    <li>{{ o.description }}</li>
+                {% endfor %}
+            </ul>
+            {% if answer %}
+                <h2>Correct option</h2>
+                {{ question.correct_option.description }}
+                <h1>Your option</h1>
+                {{ answer.answer.description }}
+                {% if answer.answer.description == question.correct_option.description %}
+                    <span class="glyphicon glyphicon-ok"></span>
+                {% else %}
+                    <span class="glyphicon glyphicon-remove"></span>
+                {% endif %}
+            {% else %}
+                {% if workshop.commiter.user.id != request.user.id and is_subscriber %}
+                    Submit your option:
+                    <form method="post" action="{% url 'question_detail' workshop.id question.id %}">
+                        {% csrf_token %}
+                        {{ form }}
+                        <input type="submit" value="Submit option" class="btn btn-block btn-success"/>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

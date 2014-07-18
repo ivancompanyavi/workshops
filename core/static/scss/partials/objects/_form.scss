@@ -1,0 +1,31 @@
+.form {
+  input {
+    padding: $spacer;
+    border: 1px solid #cccccc;
+  }
+}
+
+.form-group {
+  & {
+    position: relative;
+  }
+  .ico-form {
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid red;
+    content: "";
+  }
+
+  .ico-form + input{
+    padding-left: 50px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+}

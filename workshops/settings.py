@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'core',
     'user_profile',
     'workshop',
+    'suggestion',
 )
 
 MIDDLEWARE_CLASSES = (

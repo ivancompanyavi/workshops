@@ -41,7 +41,6 @@ class Workshop(models.Model):
     def is_subscriptor(self, worker):
         return self.subscriptions.filter(id=worker.id).count() > 0
 
-
     def __unicode__(self):
         return self.name
 

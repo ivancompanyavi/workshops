@@ -7,12 +7,11 @@ from core.models import Worker
 
 
 class RegisterForm(forms.Form):
-    CLASS_ATTR = {'class': 'form-control'}
 
-    username = forms.CharField(label='Username', required=True, widget=forms.TextInput(attrs=CLASS_ATTR))
-    password = forms.CharField(label='Password', required=True,widget=forms.PasswordInput(attrs=CLASS_ATTR))
-    email = forms.EmailField(label='Email', required=True, widget=forms.TextInput(attrs=CLASS_ATTR))
-    team = forms.ChoiceField(label='Team', required=True, choices=Worker.TEAM_CHOICES, widget=forms.Select(attrs=CLASS_ATTR))
+    username = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'username'}))
+    password = forms.CharField(label='', required=True,widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
+    email = forms.EmailField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'email'}))
+    team = forms.ChoiceField(label='', required=True, choices=Worker.TEAM_CHOICES, widget=forms.Select())
 
     def clean(self):
         username = self.cleaned_data['username']
@@ -24,9 +23,8 @@ class RegisterForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    CLASS_ATTR = {'class': 'form-control'}
-    username = forms.CharField(label='Username', required=True, widget=forms.TextInput(attrs=CLASS_ATTR))
-    password = forms.CharField(label='Password', required=True,widget=forms.PasswordInput(attrs=CLASS_ATTR))
+    username = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'username'}))
+    password = forms.CharField(label='', required=True, widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
 
 
 class AvatarForm(forms.ModelForm):

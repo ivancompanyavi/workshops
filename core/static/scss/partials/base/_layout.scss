@@ -1,0 +1,6 @@
+* { box-sizing: border-box; }
+
+body { 
+  background-image: url($img + 'noise.png'); 
+  font: $font-body;
+}

@@ -46,7 +46,6 @@ class Worker(models.Model):
 
         return current_level
 
-
     def avatar_url(self):
         if not self.avatar:
             return os.path.join(STATIC_URL, 'images', 'noimage.png')
@@ -54,15 +53,14 @@ class Worker(models.Model):
             return self.avatar.url
     """
     def save(self, *args, **kwargs):
-
         if not self.id and not self.avatar:
             return
 
         super(Worker, self).save(*args, **kwargs)
 
-        size = (400, 300)
         image = Image.open(self.avatar)
-        image = image.thumbnail(size, Image.ANTIALIAS)
+
+        image.resize((300, 300), Image.ANTIALIAS)
         image.save(self.avatar.path)
     """
 

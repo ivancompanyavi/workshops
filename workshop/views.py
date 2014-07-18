@@ -7,7 +7,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from .forms import WorkshopModelForm, QuestionAnswerForm, QuestionModelForm, NewCommentForm
 from .models import Comment
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
 
 from datetime import datetime
 
