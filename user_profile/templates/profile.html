@@ -28,13 +28,14 @@
             <h1 class="title">Your workshops</h1>
             {% for workshop in commited_workshops %}
                 <a href="{% url 'workshop_detail' workshop.id %}">
-                    {{ workshop.name }}
+                    {{ workshop.name }} -
                     {{ workshop.questions.count }} questions
                 </a>
-                <a href="{% url 'workshop_delete' workshop.id %}">
-                    <span class="glyphicon glyphicon-remove"></span>
+                <a class="pull-right" href="{% url 'workshop_delete' workshop.id %}">
+                    Remove
                 </a>
             {% endfor %}
+            <br/>
             <a href="{% url 'workshop_new' %}" class="btn btn-block btn-success">Create Workshop</a>
         </div>
         <div class="card">
@@ -42,8 +43,10 @@
             <dl class="card__info">
                 {% for workshop in worker.subscriber.all %}
                     <a href="{% url 'workshop_detail' workshop.id %}">
-                        <dt>{{ workshop.name }}</dt>
-                        <dd>{{ workshop.commiter.user.username }}</dd>
+                        <dl>
+                            <dt>{{ workshop.name }}</dt>
+                            <dd>{{ workshop.commiter.user.username }}</dd>
+                        </dl>
                     </a>
                 {% endfor %}
             </dl>

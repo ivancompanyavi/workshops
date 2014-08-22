@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <div class="card card--centered">
-        <h1 class="title">Login</h1>
+    <div class="list">
+        <div class="card card--centered">
+            <h1 class="title">Login</h1>
 
-        <div class="card__info">
-            <form class="form" action="{% url 'login' %}" method="post">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="form-group">
-                        <label class="ico-form"></label>
-                        {{ field }}
-                    </div>
-                {% endfor %}
-                <input type="submit" value="Login"/>
-            </form>
+            <div class="card__info">
+                <form class="form" action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label class="ico-form"></label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <input type="submit" value="Login"/>
+                </form>
+            </div>
         </div>
     </div>
 

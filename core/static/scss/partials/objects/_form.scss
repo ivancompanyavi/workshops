@@ -1,5 +1,5 @@
 .form {
-  input {
+  input, textarea{
     padding: $spacer;
     border: 1px solid #cccccc;
   }
@@ -8,6 +8,7 @@
 .form-group {
   & {
     position: relative;
+    margin-bottom: $spacer-L;
   }
   .ico-form {
     position: absolute;
@@ -24,8 +25,13 @@
     padding-left: 50px;
   }
 
-  input {
+  input, textarea {
     width: 100%;
+  }
+
+  textarea {
+    resize: none;
+    padding: 10px;
   }
 
 }

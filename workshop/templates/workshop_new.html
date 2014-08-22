@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 {% block title %}Create Workshop{% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <form action="{% url 'workshop_new' %}" method="post">
+    <div class="list">
+        <div class="card">
+            <div class="title">New Workshop</div>
+            <form class="form" action="{% url 'workshop_new' %}" method="post">
                 {% csrf_token %}
-                {{ form }}
+                {% for field in form %}
+                    <div class="form-group">
+                        <label>{{ field.label }}</label>
+                        {{ field.errors }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
                 <input type="submit" class="btn btn-block btn-info" value="Create Workshop"/>
             </form>
         </div>

@@ -29,10 +29,13 @@ class Workshop(models.Model):
         (FINISHED, 'finished'),
         (CLOSED, 'closed')
     )
+
+
     name = models.CharField(max_length=100)
-    description = models.TextField()
-    prerequisites = models.TextField(blank=True)
-    objectives = models.TextField()
+    description = models.TextField(verbose_name='Description')
+    prerequisites = models.TextField(verbose_name='Prerequisites', blank=True)
+    objectives = models.TextField(verbose_name='Objectives', blank=True)
+    repo_link = models.URLField(verbose_name='link to the repository', blank=True)
     questions = models.ManyToManyField(Question, blank=True)
     commiter = models.ForeignKey(Worker)
     comments = models.ManyToManyField('Comment')

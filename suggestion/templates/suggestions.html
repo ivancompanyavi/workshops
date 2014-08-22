@@ -2,6 +2,24 @@
 {% block title %}Home{% endblock %}
 {% block content %}
     <div class="list">
+        <div class="card">
+            <div class="title">Suggestion</div>
+            <div class="card__info">
+                <form method="post" action="{% url 'suggestion_add' %}">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label>{{ field.label }}</label>
+                        {{ field.errors }}
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <input type="submit" value="New suggestion"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="list">
         {% for sug in suggestions %}
             <div class="card">
                 <div class="card__info">
@@ -15,12 +33,5 @@
                 {% endif %}
             </div>
         {% endfor %}
-    </div>
-    <div class="card">
-        <form method="post" action="{% url 'suggestion_add' %}">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="New suggestion"/>
-        </form>
     </div>
 {% endblock %}

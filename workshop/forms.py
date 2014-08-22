@@ -5,12 +5,13 @@ from .models import Workshop, Question
 class WorkshopModelForm(forms.ModelForm):
     class Meta:
         model = Workshop
-        fields = ['name', 'description', 'prerequisites', 'objectives']
+        fields = ['name', 'description', 'prerequisites', 'objectives', 'repo_link']
         widgets = {
             'name': forms.TextInput(),
-            'description': forms.Textarea(),
-            'prerequisites': forms.Textarea(),
-            'objectives': forms.Textarea(),
+            'description': forms.Textarea(attrs={'rows': 5}),
+            'prerequisites': forms.Textarea(attrs={'rows': 5}),
+            'objectives': forms.Textarea(attrs={'rows': 5}),
+            'repo_link': forms.TextInput(),
         }
 
 
