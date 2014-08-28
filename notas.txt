@@ -9,6 +9,8 @@ MySQL lo tengo dentro del Vagrant, por lo que he tenido que hacer 2 cosas:
 - Darle privilegios a mi IP en el MySQL:
     Dentro de mysql: GRANT ALL ON *.* to root@'10.0.2.2' IDENTIFIED BY 'root';
 
+- Crear la base de datos 'workshops' con 'create database workshops;'
+
 - Decode de JPEG.
     - Para que pillow pueda decodificar jpeg, he tenido que instalar lo siguiente:
         sudo apt-get install libtiff4-dev libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk
