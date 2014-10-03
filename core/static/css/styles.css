@@ -485,10 +485,12 @@ a:hover {
   left: 0;
   width: 40px;
   height: 40px;
-  border: 1px solid red;
+  padding: 0.75em 0px 0px 0.75em;
   content: ""; }
 .form-group .ico-form + input {
   padding-left: 50px; }
+.form-group i {
+  font-size: 3em; }
 .form-group input, .form-group textarea {
   width: 100%; }
 .form-group textarea {
@@ -513,3 +515,11 @@ a:hover {
 
 .sections-menu {
   flex: 1; }
+
+.message {
+  border-radius: 1em;
+  margin: 1em 1em 0 1em;
+  padding-left: 1em; }
+
+.message-danger {
+  background-color: #da8a8a; }

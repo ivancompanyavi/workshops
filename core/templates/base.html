@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
     {% block statics %}{% endblock %}
 </head>
@@ -14,12 +15,14 @@
     <ul class="sitenav__section sections-menu">
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'workshop_list' %}">Workshops</a></li>
+        <li><a href="{% url 'blog_index' %}">Blog</a></li>
     </ul>
     <ul class="sitenav__section">
+        <li><a href="{% url 'suggestion_list' %}">Suggestion box</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% url 'profile' %}">Welcome, {{ user.username }}</a></li>
+            <li><a href="{% url 'workshop_new' %}">Create a workshop</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
-            <li><a href="{% url 'suggestion_list' %}">Suggestion box</a></li>
         {% else %}
             <li><a href="{% url 'login' %}">Login</a></li>
             <li><a href="{% url 'register' %}">Register</a></li>
@@ -30,7 +33,7 @@
 </div>
 {% if messages %}
     {% for message in messages %}
-        <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+        <div{% if message.tags %} class="message message-{{ message.tags }}"{% endif %}>{{ message }}</div>
     {% endfor %}
 {% endif %}
 {% block content %}

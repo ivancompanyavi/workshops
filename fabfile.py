@@ -69,6 +69,8 @@ def _install_nginx():
     put(config_file('nginx', 'nginx.repo'), '/etc/yum.repos.d/', use_sudo=True)
     sudo('yum install -y nginx')
 
+    put(config_file('nginx', 'nginx.conf'), '/etc/nginx/', use_sudo=True)
+
     sudo('mkdir -p /etc/supervisor/conf.d/')
     sudo('mkdir -p /var/log/uwsgi')
     sudo('chmod 777 -R /var/log/uwsgi')
@@ -93,9 +95,10 @@ def _install_bower():
 def install():
     sudo('yum install -y zlib-devel bzip2-devel openssl-devel curses-devel bzip2-devel sqlite-devel mysql-server mysql-devel python-devel ruby ruby-devel rubygems')
     _install_pip()
-    sudo('pip install -r requeriments.txt')
+    with cd('/vagrant'):
+        sudo('pip install -r requeriments.txt')
     _install_nginx()
-    _install_bower()
+    #_install_bower()
     sudo('gem update --system')
     sudo('gem install compass')
     with cd('/vagrant/'):

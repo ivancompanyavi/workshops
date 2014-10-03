@@ -1,24 +1,26 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-    <div class="list">
-        <div class="card">
-            <div class="title">Suggestion</div>
-            <div class="card__info">
-                <form method="post" action="{% url 'suggestion_add' %}">
-                    {% csrf_token %}
-                    {% for field in form %}
-                    <div class="form-group">
-                        <label>{{ field.label }}</label>
-                        {{ field.errors }}
-                        {{ field }}
-                    </div>
-                    {% endfor %}
-                    <input type="submit" value="New suggestion"/>
-                </form>
+    {% if user.is_authenticated %}
+        <div class="list">
+            <div class="card">
+                <div class="title">Suggestion</div>
+                <div class="card__info">
+                    <form method="post" action="{% url 'suggestion_add' %}">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label>{{ field.label }}</label>
+                            {{ field.errors }}
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+                        <input type="submit" value="New suggestion"/>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
     <div class="list">
         {% for sug in suggestions %}
             <div class="card">
@@ -31,6 +33,7 @@
                         Delete
                     </a>
                 {% endif %}
+                <h3>Status: {{ sug.get_status_display }}</h3>
             </div>
         {% endfor %}
     </div>
