@@ -8,12 +8,12 @@
                 <div class="card__info">
                     <form method="post" action="{% url 'suggestion_add' %}">
                         {% csrf_token %}
-                        {% for field in form %}
-                        <div class="form-group">
-                            <label>{{ field.label }}</label>
-                            {{ field.errors }}
-                            {{ field }}
-                        </div>
+                        {% for field in suggestion_form %}
+                            <div class="form-group">
+                                <label>{{ field.label }}</label>
+                                {{ field.errors }}
+                                {{ field }}
+                            </div>
                         {% endfor %}
                         <input type="submit" value="New suggestion"/>
                     </form>
@@ -34,6 +34,25 @@
                     </a>
                 {% endif %}
                 <h3>Status: {{ sug.get_status_display }}</h3>
+                {% for comment in sug.get_comments %}
+                    <div class="card__info">
+                        <h2>{{ comment.poster.user.id }}</h2>
+                        {{ comment.message }}
+                    </div>
+                {% endfor %}
+                <div class="card__info">
+                    <form method="post" action="{% url 'comment_add' sug.id %}">
+                        {% csrf_token %}
+                        {% for field in comment_form %}
+                            <div class="form-group">
+                                <label>{{ field.label }}</label>
+                                {{ field.errors }}
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                        <input type="submit" value="New comment"/>
+                    </form>
+                </div>
             </div>
         {% endfor %}
     </div>

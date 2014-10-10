@@ -106,10 +106,8 @@ def install():
     run('supervisord')
     run('supervisorctl update && supervisorctl restart all')
     sudo('service mysqld start')
-    sudo('nginx')
 
 
 @task
 def up():
     sudo('nginx')
-    sudo('service redis start')
