@@ -78,19 +78,6 @@ def _install_nginx():
     put(config_file('supervisor', 'supervisord.conf'), '/etc/supervisord.conf', use_sudo=True)
     put(config_file('supervisor', 'uwsgi.conf'), '/etc/supervisor/conf.d/', use_sudo=True)
 
-
-def _install_bower():
-    #first, we have to install Node
-    with cd('/home/vagrant/src'):
-        run('wget http://nodejs.org/dist/v0.10.31/node-v0.10.31.tar.gz')
-        run('tar zxf node-v0.10.31.tar.gz')
-        with cd('node-v0.10.31'):
-            run('sudo su -')
-            run('./configure')
-            run('make')
-            sudo('make install')
-    run('npm install -g bower')
-
 @task
 def install():
     sudo('yum install -y zlib-devel bzip2-devel openssl-devel curses-devel bzip2-devel sqlite-devel mysql-server mysql-devel python-devel ruby ruby-devel rubygems node npm')
@@ -99,7 +86,6 @@ def install():
     with cd('/vagrant'):
         sudo('pip install -r requeriments.txt')
     _install_nginx()
-    #_install_bower()
     sudo('gem update --system')
     sudo('gem install compass')
     with cd('/vagrant/'):
