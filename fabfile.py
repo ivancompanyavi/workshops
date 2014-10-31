@@ -93,7 +93,8 @@ def _install_bower():
 
 @task
 def install():
-    sudo('yum install -y zlib-devel bzip2-devel openssl-devel curses-devel bzip2-devel sqlite-devel mysql-server mysql-devel python-devel ruby ruby-devel rubygems')
+    sudo('yum install -y zlib-devel bzip2-devel openssl-devel curses-devel bzip2-devel sqlite-devel mysql-server mysql-devel python-devel ruby ruby-devel rubygems node npm')
+    sudo('npm install -g bower')
     _install_pip()
     with cd('/vagrant'):
         sudo('pip install -r requeriments.txt')
