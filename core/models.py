@@ -12,13 +12,11 @@ class LevelPoints(object):
 
 
 class Worker(models.Model):
-    MOLE = 1
-    BEE = 2
-    REAPER = 3
+    PLATYPUS= 1
+    X = 2
     TEAM_CHOICES = (
-        (MOLE, 'Mole'),
-        (BEE, 'Bee'),
-        (REAPER, 'Reaper')
+        (PLATYPUS, 'Platypus'),
+        (X, 'X'),
     )
     user = models.ForeignKey(User)
     team = models.IntegerField(choices=TEAM_CHOICES)
