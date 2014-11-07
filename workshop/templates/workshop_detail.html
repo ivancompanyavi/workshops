@@ -25,9 +25,12 @@
             <h1 class="title">Link to the repository</h1>
 
             <div class="card__info">
-                {{ workshop.repo_link }}
+                <a href="{{ workshop.repo_link }}">{{ workshop.repo_link }}</a>
             </div>
-
+            {% if workshop.commiter.user.id == request.user.id %}
+                <br />
+                <a href="{% url 'workshop_edit' workshop.id %}">Edit workshop</a>
+            {% endif %}
         </div>
         <div class="card">
             <h1 class="title">Questions</h1>
@@ -42,6 +45,7 @@
                     </a>
                 {% endfor %}
                 {% if workshop.commiter.user == request.user %}
+                    <br>
                     <a href="{% url 'question_new' workshop.id %}" class="btn btn-block btn-success">Add
                         question</a>
                 {% endif %}

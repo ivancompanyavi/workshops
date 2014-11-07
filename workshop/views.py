@@ -7,6 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from .forms import WorkshopModelForm, QuestionAnswerForm, QuestionModelForm, NewCommentForm
 from .models import Comment
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 from datetime import datetime
 
@@ -51,6 +52,12 @@ def workshop_detail(request, workshop_id):
     else:
         form = NewCommentForm()
     return render_to_response('workshop_detail.html', {'workshop': workshop, 'form': form}, RequestContext(request))
+
+
+def workshop_edit(request, workshop_id):
+    workshop = get_object_or_404(Workshop, id=workshop_id)
+    form = WorkshopModelForm(instance=workshop)
+    return render_to_response('workshop_new.html', {'form': form}, RequestContext(request))
 
 
 @login_required
