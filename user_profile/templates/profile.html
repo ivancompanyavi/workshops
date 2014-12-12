@@ -27,13 +27,15 @@
         <div class="card">
             <h1 class="title">Your workshops</h1>
             {% for workshop in commited_workshops %}
-                <a href="{% url 'workshop_detail' workshop.id %}">
-                    {{ workshop.name }} -
-                    {{ workshop.questions.count }} questions
-                </a>
-                <a class="pull-right" href="{% url 'workshop_delete' workshop.id %}">
-                    Remove
-                </a>
+                <div>
+                    <a href="{% url 'workshop_detail' workshop.id %}">
+                        {{ workshop.name }} -
+                        {{ workshop.questions.count }} questions
+                    </a>
+                    <a class="pull-right" href="{% url 'workshop_delete' workshop.id %}">
+                        Remove
+                    </a>
+                </div>
             {% endfor %}
             <br/>
             <a href="{% url 'workshop_new' %}" class="btn btn-block btn-success">Create Workshop</a>

@@ -58,7 +58,6 @@ def profile(request):
     worker = Worker.objects.get(user__pk=request.user.pk)
     commited_workshops = Workshop.objects.filter(commiter=worker)
     subscribed_workshops = Workshop.objects.filter(subscriptions=worker)
-    print len(subscribed_workshops)
     return render_to_response('profile.html', {'worker': worker, 'commited_workshops': commited_workshops,
                                                'subscribed_workshops': subscribed_workshops}, RequestContext(request))
 
